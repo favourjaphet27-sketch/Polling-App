@@ -1,8 +1,10 @@
 "use client";
-
+// TODO: connect to Supabase for polls data and voting
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../contexts/AuthContext';
+// Removed unused Card components import
+import { useState } from "react";
 
 export default function PollsDashboard() {
   const router = useRouter();
@@ -59,7 +61,10 @@ export default function PollsDashboard() {
           <h2 className="text-xl font-semibold mb-2">Favorite Programming Language</h2>
           <p className="text-gray-600 mb-4">Created 2 days ago · 42 votes</p>
           <div className="flex justify-end">
-            <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+            <button
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              onClick={() => alert('Vote for Favorite Programming Language')}
+            >
               Vote Now
             </button>
           </div>
@@ -68,7 +73,10 @@ export default function PollsDashboard() {
           <h2 className="text-xl font-semibold mb-2">Best Frontend Framework</h2>
           <p className="text-gray-600 mb-4">Created 5 days ago · 128 votes</p>
           <div className="flex justify-end">
-            <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+            <button
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              onClick={() => alert('Vote for Best Frontend Framework')}
+            >
               Vote Now
             </button>
           </div>
@@ -77,14 +85,20 @@ export default function PollsDashboard() {
           <h2 className="text-xl font-semibold mb-2">Preferred Development Environment</h2>
           <p className="text-gray-600 mb-4">Created 1 week ago · 85 votes</p>
           <div className="flex justify-end">
-            <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+            <button
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              onClick={() => alert('Vote for Preferred Development Environment')}
+            >
               Vote Now
             </button>
           </div>
         </div>
       </div>
       <div className="mt-8 flex justify-end">
-        <button className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 flex items-center gap-2">
+        <button
+          className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 flex items-center gap-2"
+          onClick={() => router.push('/polls/create')}
+        >
           <span>Create New Poll</span>
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <line x1="12" y1="5" x2="12" y2="19"></line>
