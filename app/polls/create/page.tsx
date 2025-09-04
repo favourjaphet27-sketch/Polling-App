@@ -18,7 +18,7 @@ export default function CreatePollPage() {
     return null;
   }
 
-  const handleOptionChange = (index, value) => {
+  const handleOptionChange = (index: number, value: string) => {
     const newOptions = [...options];
     newOptions[index] = value;
     setOptions(newOptions);
@@ -28,13 +28,13 @@ export default function CreatePollPage() {
     setOptions([...options, ""]);
   };
 
-  const removeOption = (index) => {
+  const removeOption = (index: number) => {
     if (options.length > 2) {
       setOptions(options.filter((_, i) => i !== index));
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
     setSuccess("");

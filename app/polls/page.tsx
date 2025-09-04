@@ -1,6 +1,7 @@
 "use client";
 // TODO: connect to Supabase for polls data and voting
 import React, { useEffect, useState } from 'react';
+import Link from "next/link";
 type Poll = {
   id: string;
   question: string;
@@ -37,30 +38,11 @@ export default function PollsDashboard() {
   useEffect(() => {
     async function fetchPollsAndVotes() {
       setLoadingPolls(true);
-      setError("");
-      // Fetch polls
-      const { data: pollsData, error: pollsError } = await supabase
-        .from('polls')
-        .select('id, question, options, created_at, created_by');
-  // Edit poll handler (navigate to edit page)
-  const handleEdit = (pollId: string) => {
-    router.push(`/polls/edit/${pollId}`);
-  };
-
-  // Delete poll handler
-  const handleDelete = async (pollId: string) => {
-    if (!window.confirm("Are you sure you want to delete this poll?")) return;
-    setLoadingPolls(true);
-    setError("");
-    const { error } = await supabase.from('polls').delete().eq('id', pollId);
-    if (error) {
-      setError(error.message);
-    } else {
-      setPolls((prev) => prev.filter((p) => p.id !== pollId));
-      setSuccess("Poll deleted successfully.");
-    }
-    setLoadingPolls(false);
-  };
+  setError("");
+  // Fetch polls
+  const { data: pollsData, error: pollsError } = await supabase
+    .from('polls')
+    .select('id, question, options, created_at, created_by');
       if (pollsError) setError(pollsError.message);
       setPolls(pollsData || []);
 
@@ -151,6 +133,15 @@ export default function PollsDashboard() {
     }
   };
 
+  function handleEdit(id: string): void {
+    // TODO: Implement edit functionality, e.g., navigate to edit page
+    router.push(`/polls/edit/${id}`);
+  }
+
+  function handleDelete(id: string): void {
+    throw new Error('Function not implemented.');
+  }
+
   return (
   <div className="max-w-6xl mx-auto py-8 px-2 sm:px-4">
   <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
@@ -225,16 +216,16 @@ export default function PollsDashboard() {
         )}
       </div>
       <div className="mt-8 flex justify-end">
-        <button
+        <Link
+          href="/polls/create"
           className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 flex items-center gap-2"
-          onClick={() => router.push('/polls/create')}
         >
           <span>Create New Poll</span>
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <line x1="12" y1="5" x2="12" y2="19"></line>
             <line x1="5" y1="12" x2="19" y2="12"></line>
           </svg>
-        </button>
+        </Link>
       </div>
     </div>
   );
